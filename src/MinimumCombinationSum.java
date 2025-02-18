@@ -20,7 +20,7 @@ public class MinimumCombinationSum {
 
     public static void main(String[] args) {
         int[] coins={1,4,5};
-        int target=13;
+        int target=5;
         MinimumCombinationSum min=new MinimumCombinationSum();
         System.out.println(min.minimumCombination(coins,target));
     }

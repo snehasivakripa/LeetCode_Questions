@@ -3,7 +3,6 @@ public class MinimumCombinationSumBottomUp {
 
     public int minimumCombinationBU(int[] nums, int target) {
         int[] arr=new int[target+1];
-        arr[0]=0;
             for(int i=1;i<=target;i++) {
                 for (int coin : nums) {
                     int remain = i - coin;
