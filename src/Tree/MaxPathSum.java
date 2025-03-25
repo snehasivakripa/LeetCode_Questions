@@ -1,7 +1,6 @@
 package Tree;
 
-public class MaximumDepthNary {
-
+public class MaxPathSum {
     public static class TreeNode {
         Integer val;
         TreeNode left;
@@ -33,17 +32,28 @@ public class MaximumDepthNary {
         }
         return root;
     }
-    public int maxDepth(TreeNode root){
-        int maxDep=0;
-        if(root!=null) {
-            maxDep = 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
-        }
-        return maxDep;
-    }
+
     public static void main(String[] args){
-        Integer[] arr={1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14};
-        MaximumDepthNary tree=new MaximumDepthNary();
+        Integer[] arr={1,2,3};
+        MaxPathSum tree=new MaxPathSum();
         TreeNode root=tree.createBinary(arr,0);
-        System.out.println(tree.maxDepth(root));
+        System.out.println(tree.maxPathSum( root));
     }
+
+    private int maxPathSum(TreeNode root) {
+        int sum=0;
+        return maxSum(root,sum);
+
+    }
+
+    private int maxSum(TreeNode root, int sum) {
+        if(root==null) {return 0;}
+            int left=maxSum(root.left, sum);
+
+            int right=maxSum(root.right, sum);
+        sum = Math.max(sum, sum + Math.max(left,right));
+        return Math.max(sum,root.val+left+right);
+    }
+
+
 }

@@ -1,7 +1,6 @@
 package Tree;
 
-public class MaximumDepthNary {
-
+public class DiameterTree {
     public static class TreeNode {
         Integer val;
         TreeNode left;
@@ -25,25 +24,33 @@ public class MaximumDepthNary {
         if(arr.length==0) return null;
         TreeNode root=null;
         if(index<arr.length){
-            if(arr[index]!=null) {
-                root = new TreeNode(arr[index]);
-                root.left = createBinary(arr, 2 * index + 1);
-                root.right = createBinary(arr, 2 * index + 2);
-            }
+            root=new TreeNode(arr[index]);
+            root.left=createBinary(arr,2*index+1);
+            root.right=createBinary(arr,2*index+2);
         }
         return root;
     }
-    public int maxDepth(TreeNode root){
-        int maxDep=0;
-        if(root!=null) {
-            maxDep = 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
-        }
-        return maxDep;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        int len=0;
+        return diameterBT(root,len);
     }
+
+    private int diameterBT(TreeNode root, int len) {
+
+        if(root!=null) {
+            int left=diameterBT(root.left,len);
+            int right=diameterBT(root.right,len);
+            len= Math.max(len,left+right);
+            return Math.max(left,right)+1;
+        }else
+        return 0;
+    }
+
     public static void main(String[] args){
-        Integer[] arr={1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14};
-        MaximumDepthNary tree=new MaximumDepthNary();
+        Integer[] arr={1,2,3,4,5};
+        DiameterTree tree=new DiameterTree();
         TreeNode root=tree.createBinary(arr,0);
-        System.out.println(tree.maxDepth(root));
+        System.out.println(tree.diameterOfBinaryTree(root));
     }
 }

@@ -1,7 +1,6 @@
 package Tree;
 
-public class MaximumDepthNary {
-
+public class MinimumDiff {
     public static class TreeNode {
         Integer val;
         TreeNode left;
@@ -25,7 +24,7 @@ public class MaximumDepthNary {
         if(arr.length==0) return null;
         TreeNode root=null;
         if(index<arr.length){
-            if(arr[index]!=null) {
+            if (arr[index] != null) {
                 root = new TreeNode(arr[index]);
                 root.left = createBinary(arr, 2 * index + 1);
                 root.right = createBinary(arr, 2 * index + 2);
@@ -33,17 +32,27 @@ public class MaximumDepthNary {
         }
         return root;
     }
-    public int maxDepth(TreeNode root){
-        int maxDep=0;
-        if(root!=null) {
-            maxDep = 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
-        }
-        return maxDep;
+
+    public int getMinimumDifference(TreeNode root) {
+        int len=0;
+        return minDiff(root,len);
     }
+
+    private int minDiff(TreeNode root, int len) {
+
+        if(root!=null && root.left!=null && root.right!=null) {
+            len=Math.min(Math.abs(root.val-root.left.val),Math.abs(root.val-root.right.val));
+            minDiff(root.left,len);
+            minDiff(root.right,len);
+            return len;
+        }else
+            return 0;
+    }
+
     public static void main(String[] args){
-        Integer[] arr={1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14};
-        MaximumDepthNary tree=new MaximumDepthNary();
+        Integer[] arr={4,2,6,1,3};
+        MinimumDiff tree=new MinimumDiff();
         TreeNode root=tree.createBinary(arr,0);
-        System.out.println(tree.maxDepth(root));
+        System.out.println(tree.getMinimumDifference(root));
     }
 }
